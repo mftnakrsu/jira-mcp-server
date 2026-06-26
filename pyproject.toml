@@ -1,0 +1,17 @@
+[project]
+name = "jira-mcp-server"
+version = "0.1.0"
+description = "Read-only JIRA MCP server exposing 13 tools over Streamable HTTP"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "jira[cli]>=3.10.5",
+    "mcp>=1.27.2",
+    "pydantic>=2.0",
+    "python-dotenv>=1.2.2",
+    "requests>=2.31",
+    "uvicorn>=0.30",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]

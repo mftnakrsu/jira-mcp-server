@@ -1,0 +1,33 @@
+# ============================================================================
+# JIRA MCP server — standalone container (:8002).
+# Stateless; connects OUT to a JIRA Data Center / Server instance. No DB, no volumes.
+#
+#   docker compose build
+#   docker compose up -d
+#   docker compose logs -f
+#
+# Secrets/addresses come from .env (never committed). See .env.example.
+# ============================================================================
+
+services:
+  jira-mcp:
+    build:
+      context: .
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.11-slim}
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    image: jira-mcp:latest
+    container_name: jira-mcp
+    env_file: .env
+    ports:
+      - "${JIRA_MCP_PORT:-8002}:8002"   # MCP client -> http://<host>:8002/mcp
+    # If your JIRA host isn't resolvable from inside the container (e.g. an
+    # internal-only DNS name), pin host -> IP here. The hostname MUST be
+    # byte-identical to JIRA_URL's host in .env so the Host header / vhost stays
+    # correct. Example:
+    # extra_hosts:
+    #   - "jira.example.com:192.0.2.10"
+    # Alternative: point the container at your internal DNS resolver:
+    # dns:
+    #   - 192.0.2.1
+    restart: unless-stopped

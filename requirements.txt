@@ -1,0 +1,13 @@
+# Runtime deps for the JIRA MCP server image. Mirrors pyproject.toml.
+# Floors, not hashes.
+#
+# Behind a corporate firewall, pip-install from your internal mirror via the
+# PIP_INDEX_URL build arg (see Dockerfile). If the mirror lacks a `jira[cli]`
+# transitive wheel, drop the extra to `jira>=3.10.5` — the server only uses
+# `from jira import JIRA`, not the CLI.
+jira[cli]>=3.10.5
+mcp>=1.27.2,<1.28
+pydantic>=2.0
+python-dotenv>=1.2.2
+requests>=2.31
+uvicorn>=0.30

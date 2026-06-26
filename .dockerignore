@@ -1,0 +1,17 @@
+# Keep secrets, local venv, tests and caches OUT of the build context.
+.env
+.venv
+__pycache__/
+*.py[cod]
+*.egg-info
+tests/
+.git
+.gitignore
+.python-version
+build/
+dist/
+wheels/
+README.md
+# Docker transfer tarballs (build output — must not enter the build context/image)
+*.tar
+*.tar.gz
